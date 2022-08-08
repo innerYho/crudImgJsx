@@ -19,7 +19,7 @@ export default function Home() {
 
         <p>Hola</p>
         <div className="col-span-2">
-          <CargueImagenes
+          {/* <CargueImagenes
             ide={id}
             id="fileInput"
             body="soporte_incidencias"
@@ -28,7 +28,7 @@ export default function Home() {
             image={image8}
             setImage={setImage8}
             route={`${url}`}
-          />
+          /> */}
 
 
         </div>
