@@ -1,5 +1,7 @@
 import React from "react";
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Registro from "./pages/AgenteFinanciado"
+import Tabla from "./pages/TyTtabla"
 import {
     BrowserRouter,
     Route,
@@ -20,6 +22,9 @@ export default function App() {
                 <Routes>
                     {/* Modulo General */}
                     <Route path="/" element={<Home />} />
+                    <Route path="/registro" element={<Registro />} />
+                    <Route path="/registro/:id" element={<Registro />} />
+                    <Route path="/tabla" element={<Tabla />} />
                 </Routes>
             </BrowserRouter>
         </>

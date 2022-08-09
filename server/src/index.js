@@ -11,11 +11,11 @@ app.set("port", process.env.PORT || 9369);
 const dbConfig = {
   host: "localhost",
   port: "3306",
-  user: "baq",
+  user: "devuser",
   // user: "root",
   // password: "",
-  password: "Asiste.2021",
-  database: "heimdall",
+  password: "DevUser$",
+  database: "img_dbs",
 };
 
 // middleware
