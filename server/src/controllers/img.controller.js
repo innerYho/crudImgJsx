@@ -1,6 +1,6 @@
 const path = require('path')
 var fs = require('fs');
-//version Weiz
+//version CronosAPi
 
 const singleFileUpload = (req, res) => {
   if (!req.file) {

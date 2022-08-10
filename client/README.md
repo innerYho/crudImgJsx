@@ -25,3 +25,6 @@ ALTER USER 'devuser'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CO
 instalar y habilitar Tailwind
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+
+
+

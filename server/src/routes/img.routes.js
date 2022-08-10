@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 // const uploads = require("../utils/handleStorage");
 // const { uploadFile } = require("../controllers/images.controller");
+//version CronosAPi
 
 const multer = require('multer')
 
@@ -18,7 +19,7 @@ var storage = multer.diskStorage({
     destination: (req, file, callBack) => {
         // callBack(null, '../public/imgVentas')     // './public/images/' directory name where save the file
         // callBack(null, path.join(__dirname, '../public/imgVentas'))     // './public/images/' directory name where save the file
-        callBack(null, path.join('../public/imgVentas'))     // './public/images/' directory name where save the file
+        callBack(null, path.join('../../public/imgVentas'))     // './public/images/' directory name where save the file
     },
     filename: (req, file, callBack) => {
         let { camp, subCamp } = req.params;
