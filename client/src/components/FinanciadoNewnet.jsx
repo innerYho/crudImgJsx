@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 // import Cookies from "universal-cookie";
 // import { url } from "../../../data/url";
-import CargueImagenes from "./general/CargueImagenes";
+// import CargueImagenes from "./general/CargueImagenes";
 // import elementos from "../../elementos/tytFinanciado";
+import { ImagePaste } from "./general/ImagePaste";
 import { useNavigate } from "react-router-dom";
 import { FaWpforms } from "react-icons/fa";
 
-export default function FormularioFinanciado({ id, data, setData }) {
+export default function FormularioNewnet({ id, data, setData }) {
   // const cookie = new Cookies();
   const navigate = useNavigate();
   const url = "http://localhost:9369"
@@ -16,50 +17,22 @@ export default function FormularioFinanciado({ id, data, setData }) {
 
   // const [usuario] = useState(cookie.get("usuario"));
   const [nom_cli, setNom_cli] = useState("");
-  // const [id_num_cli, setId_num_cli] = useState("");
-  // const [nom_ter, setNom_ter] = useState("");
-  // const [id_num_ter, setId_num_ter] = useState("");
-  // const [direccion_e, setDereccion_e] = useState("");
-  // const [direccion_c, setDireccion_c] = useState("");
-  // const [barrio, setBarrio] = useState("");
-  // const [departamento, setDepartamento] = useState("");
-  // const [ciudad, setCiudad] = useState("");
-  // const [cel_uno, setCel_uno] = useState("");
-  // const [cel_dos, setCel_dos] = useState("");
-  // const [num_grabacion, setNum_grabacion] = useState("");
-  // const [num_fono, setNum_fono] = useState("");
-  // const [tipo_val_identidad, setTipo_val_identidad] = useState("");
-  // const [tipo_venta, setTipo_venta] = useState("");
-  // const [facturacion, setFacturacion] = useState("");
-  // const [num_factura, setNum_factura] = useState("");
-  // const [equipo_vendido, setEquipo_vendido] = useState("");
-  // const [id_material, setId_material] = useState("");
-  // const [cantidad_stock, setCantidad_stock] = useState("");
-  // const [total_con_iva, setTotal_con_iva] = useState("");
-  // const [total_sin_iva, setTotal_sin_iva] = useState("");
-  // const [cuota_mes, setCuota_mes] = useState("");
-  // const [valor_cuota_ini, setValor_cuota_ini] = useState("");
-  // const [num_cuotas, setNum_cuotas] = useState("");
-  // const [seguro, setSeguro] = useState("");
-  // const [tipo_entrega, setTipo_entrega] = useState("");
-  // const [obs_age, setObs_age] = useState("");
-  // const [ediciones_agente, setEdiciones_agentes] = useState("");
+
   const [val_identidad, setVal_identidad] = useState("");
   const [poliedro, setPoliedro] = useState("");
-  // const [inventario, setInventario] = useState("");
-  // const [ac, setAc] = useState("");
-  // const [tickler, setTickler] = useState("");
-  // const [soporte_incidencias, setSoporte_incidencias] = useState("");
-  // const [soporte_incidencias2, setSoporte_incidencias2] = useState("");
-  // const [soporte_incidencias3, setSoporte_incidencias3] = useState("");
+
+  // almacena el valor de getUrlImage()
+  const [val_identidad_ruta, setVal_identidad_ruta] = useState("");
+  const [poliedro_ruta, setPoliedro_ruta] = useState("");
+
+
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
-  // const [image3, setImage3] = useState("");
-  // const [image4, setImage4] = useState("");
-  // const [image5, setImage5] = useState("");
-  // const [image6, setImage6] = useState("");
-  // const [image7, setImage7] = useState("");
-  // const [image8, setImage8] = useState("");
+  const [form, setForm] = useState({
+    tc_val_identidad: '',
+    tc_poliedro: ''
+  });
+
 
   // const dato = new Date();
   // const date = dato.toISOString().split("T")[0];
@@ -115,19 +88,24 @@ export default function FormularioFinanciado({ id, data, setData }) {
   };
 
   const submit = async (e) => {
-    handleSubmit(
-      e,
-      // () => { history.push('/tyt/contado') },
+    if (id) {
+      actionPrevUpdate(e)
+      submitEditar(e)
+    } else {
+      actionPrevCreate(e)
+      submitGuardar(e)
 
-      id ? actionPrevUpdate : actionPrevCreate,
-      id ? submitGuardar : submitEditar,
-      navigate("/")
-    )
+    }
   }
 
-  const actionPrevCreate = async () => {
-    setVal_identidad(await getUrlImage(val_identidad, 'tyt', 'contado')),
-      setPoliedro(await getUrlImage(poliedro, 'tyt', 'contado'))
+  const actionPrevCreate = async (e) => {
+    // console.log(e.target.value)
+    console.log('actionPrevCreate')
+
+    console.log(val_identidad_ruta)
+
+    setVal_identidad_ruta(await getUrlImage(val_identidad, 'tyt', 'contado')),
+      setPoliedro_ruta(await getUrlImage(poliedro, 'tyt', 'contado'))
   };
   const actionPrevUpdate = async () => {
     setVal_identidad(await getUrlImage(val_identidad, 'tyt', 'contado')),
@@ -138,6 +116,7 @@ export default function FormularioFinanciado({ id, data, setData }) {
   const submitGuardar = async (e) => {
     try {
       e.preventDefault();
+      // console.log('submitGuardar')
 
       // await upload();
       // await ();
@@ -147,12 +126,12 @@ export default function FormularioFinanciado({ id, data, setData }) {
         color: "Gris",
         fecha_r: date,
         nom_cli: nom_cli,
-        val_identidad: images[0],
-        poliedro: images[1],
+        val_identidad: val_identidad_ruta,
+        poliedro: poliedro_ruta,
 
       });
       Swal.fire(res.data.err ? res.data.err : res.data.msg);
-      navigate("/");
+      // navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -222,6 +201,35 @@ export default function FormularioFinanciado({ id, data, setData }) {
     }
   };
 
+  // parametros
+  // img: objeto de imagen
+  // camp: Campaña. Ej: tyt
+  // subCamp: Subcampaña. Ej: financiado
+  const getUrlImage = async (
+    img,
+    camp,
+    subCamp
+  ) => {
+    try {
+      console.log('getUrlImage')
+      console.log(img)
+      if (!img) {
+        return '';
+      } else {
+        const formData = new FormData();
+        formData.append("img", img);
+        let res = await axios.post(`${urlServer}/upload/uploadSingleFile/${camp}/${subCamp}`,
+          formData
+        );
+        let { url } = res.data;
+        // console.log(url)
+        return url
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
   return (
     <>
       <a
@@ -259,7 +267,7 @@ export default function FormularioFinanciado({ id, data, setData }) {
             Insertar imagenes
           </h2>
           <div className="col-span-2">
-            <CargueImagenes
+            {/* <CargueImagenes
               ide={id}
               id="fileInput"
               body="val_identidad"
@@ -282,6 +290,17 @@ export default function FormularioFinanciado({ id, data, setData }) {
               setImage={setImage2}
               // required={"true"}
               route={`${url}`}
+            /> */}
+            <ImagePaste
+              label="Validación de Identidad"
+              id="tc_val_identidad"
+              name="tc_val_identidad"
+              value={val_identidad}
+              form={form}
+              setForm={setForm}
+              classNameInput="form-control col-8"
+              classNameDiv="form-group col-md-4"
+              route={`${urlServer}/imgVentas`}
             />
           </div>
 

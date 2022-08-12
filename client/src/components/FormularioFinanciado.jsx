@@ -16,42 +16,10 @@ export default function FormularioFinanciado({ id, data, setData }) {
 
   // const [usuario] = useState(cookie.get("usuario"));
   const [nom_cli, setNom_cli] = useState("");
-  // const [id_num_cli, setId_num_cli] = useState("");
-  // const [nom_ter, setNom_ter] = useState("");
-  // const [id_num_ter, setId_num_ter] = useState("");
-  // const [direccion_e, setDereccion_e] = useState("");
-  // const [direccion_c, setDireccion_c] = useState("");
-  // const [barrio, setBarrio] = useState("");
-  // const [departamento, setDepartamento] = useState("");
-  // const [ciudad, setCiudad] = useState("");
-  // const [cel_uno, setCel_uno] = useState("");
-  // const [cel_dos, setCel_dos] = useState("");
-  // const [num_grabacion, setNum_grabacion] = useState("");
-  // const [num_fono, setNum_fono] = useState("");
-  // const [tipo_val_identidad, setTipo_val_identidad] = useState("");
-  // const [tipo_venta, setTipo_venta] = useState("");
-  // const [facturacion, setFacturacion] = useState("");
-  // const [num_factura, setNum_factura] = useState("");
-  // const [equipo_vendido, setEquipo_vendido] = useState("");
-  // const [id_material, setId_material] = useState("");
-  // const [cantidad_stock, setCantidad_stock] = useState("");
-  // const [total_con_iva, setTotal_con_iva] = useState("");
-  // const [total_sin_iva, setTotal_sin_iva] = useState("");
-  // const [cuota_mes, setCuota_mes] = useState("");
-  // const [valor_cuota_ini, setValor_cuota_ini] = useState("");
-  // const [num_cuotas, setNum_cuotas] = useState("");
-  // const [seguro, setSeguro] = useState("");
-  // const [tipo_entrega, setTipo_entrega] = useState("");
-  // const [obs_age, setObs_age] = useState("");
-  // const [ediciones_agente, setEdiciones_agentes] = useState("");
+
   const [val_identidad, setVal_identidad] = useState("");
   const [poliedro, setPoliedro] = useState("");
-  // const [inventario, setInventario] = useState("");
-  // const [ac, setAc] = useState("");
-  // const [tickler, setTickler] = useState("");
-  // const [soporte_incidencias, setSoporte_incidencias] = useState("");
-  // const [soporte_incidencias2, setSoporte_incidencias2] = useState("");
-  // const [soporte_incidencias3, setSoporte_incidencias3] = useState("");
+
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   // const [image3, setImage3] = useState("");
@@ -103,12 +71,7 @@ export default function FormularioFinanciado({ id, data, setData }) {
       let { rows } = res.data;
       images.push(rows[0]);
       images.push(rows[1]);
-      // images.push(rows[2]);
-      // images.push(rows[3]);
-      // images.push(rows[4]);
-      // images.push(rows[5]);
-      // images.push(rows[6]);
-      // images.push(rows[7]);
+
     } catch (error) {
       console.log(error);
     }
