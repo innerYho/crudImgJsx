@@ -39,6 +39,9 @@ export const ImagePaste = ({
     // https://www.kindacode.com/article/react-typescript-handle-oncopy-oncut-and-onpaste-events/
     const handleChange = async (e) => {
         var item = e.clipboardData.items[0];
+        if (item === undefined) {
+            alert('undefined')
+        }
         if (item.type.indexOf("image") === 0) {
             let { name } = e.target;
             setForm({
@@ -48,6 +51,10 @@ export const ImagePaste = ({
         } else {
             alert("Solo se aceptan imágenes");
         }
+        console.log('handleChange')
+        console.log(value)
+        console.log(form)
+
     };
 
     const removeFile = (idName) => {
@@ -62,9 +69,10 @@ export const ImagePaste = ({
             <div className="row">
                 <label className="">{label}</label>
                 {value && (
+                    // console.log(value)
                     <div className="col-12 text-center">
                         <img
-                            alt="not fount"
+                            alt="Img not found"
                             style={styleImage}
                             src={isObject(value) ? URL.createObjectURL(value) : `${route}/${value}`}
                         // src={isEdit ? `${route}/${value}` : URL.createObjectURL(value)}
@@ -139,7 +147,7 @@ export const Image = ({
                 {value && (
                     <div className="col-12 text-center">
                         <img
-                            alt="not fount"
+                            alt="not found XD"
                             style={styleImage}
                             src={isEdit ? `${route}/${value}` : URL.createObjectURL(value)}
                         />

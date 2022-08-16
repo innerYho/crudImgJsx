@@ -13,6 +13,7 @@ export default function FormularioNewnet({ id, data, setData }) {
   // const cookie = new Cookies();
   const navigate = useNavigate();
   const url = "http://localhost:9369"
+  const urlNoPort = "http://localhost"
   const images = [];
 
   // const [usuario] = useState(cookie.get("usuario"));
@@ -28,11 +29,21 @@ export default function FormularioNewnet({ id, data, setData }) {
 
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
-  const [form, setForm] = useState({
-    tc_val_identidad: '',
-    tc_poliedro: ''
-  });
+  // const [form, setForm] = useState(
+  //   [
+  //     val_identidad: '',
+  //     poliedro: ''
+  //   ]
+  // );
 
+  const [form, setForm] = useState({
+    val_identidad: ''
+    // poliedro: ''
+  });
+  const initialForm = {
+    val_identidad: '',
+    poliedro: ''
+  }
 
   // const dato = new Date();
   // const date = dato.toISOString().split("T")[0];
@@ -55,58 +66,25 @@ export default function FormularioNewnet({ id, data, setData }) {
       : current.getSeconds()
     }`;
 
-  const upload = async () => {
-    const formdata = new FormData();
-    formdata.append("image1", image1);
-    formdata.append("image2", image2);
-    // formdata.append("image3", image3);
-    // formdata.append("image4", image4);
-    // formdata.append("image5", image5);
-    // formdata.append("image6", image6);
-    // formdata.append("image7", image7);
-    // formdata.append("image8", image8);
-
-    try {
-      let campana = "tyt";
-      let metodo = "financiado";
-      let res = await axios.post(
-        `${url}/images/${campana}/${metodo}`,
-        formdata
-      );
-      let { rows } = res.data;
-      images.push(rows[0]);
-      images.push(rows[1]);
-      // images.push(rows[2]);
-      // images.push(rows[3]);
-      // images.push(rows[4]);
-      // images.push(rows[5]);
-      // images.push(rows[6]);
-      // images.push(rows[7]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const submit = async (e) => {
     if (id) {
       actionPrevUpdate(e)
-      submitEditar(e)
+      // submitEditar(e)
     } else {
-      actionPrevCreate(e)
+      // actionPrevCreate(e)
       submitGuardar(e)
 
     }
   }
 
-  const actionPrevCreate = async (e) => {
-    // console.log(e.target.value)
-    console.log('actionPrevCreate')
-
-    console.log(val_identidad_ruta)
-
-    setVal_identidad_ruta(await getUrlImage(val_identidad, 'tyt', 'contado')),
-      setPoliedro_ruta(await getUrlImage(poliedro, 'tyt', 'contado'))
-  };
+  // const actionPrevCreate = async (e) => {
+  //   // setVal_identidad_ruta(await getUrlImage(form.val_identidad, 'tyt', 'contado'))
+  //   let valTemp = (await getUrlImage(form.val_identidad, 'tyt', 'contado'))
+  //   console.log(typeof (valTemp))
+  //   setVal_identidad_ruta(valTemp)
+  //   // submitGuardar(e)
+  // };
   const actionPrevUpdate = async () => {
     setVal_identidad(await getUrlImage(val_identidad, 'tyt', 'contado')),
       setPoliedro(await getUrlImage(poliedro, 'tyt', 'contado'))
@@ -116,18 +94,21 @@ export default function FormularioNewnet({ id, data, setData }) {
   const submitGuardar = async (e) => {
     try {
       e.preventDefault();
-      // console.log('submitGuardar')
+      let valTemp = (await getUrlImage(form.val_identidad, 'tyt', 'contado'))
 
+      // console.log('submitGuardar')
       // await upload();
       // await ();
+      console.log('submitGuardar')
+      console.log(val_identidad_ruta)
 
       const tabla = "tyt_finan";
       let res = await axios.post(`${url}/createGeneral/${tabla}`, {
         color: "Gris",
         fecha_r: date,
         nom_cli: nom_cli,
-        val_identidad: val_identidad_ruta,
-        poliedro: poliedro_ruta,
+        val_identidad: valTemp,
+        // poliedro: poliedro_ruta,
 
       });
       Swal.fire(res.data.err ? res.data.err : res.data.msg);
@@ -171,6 +152,11 @@ export default function FormularioNewnet({ id, data, setData }) {
   const datosFinanciado = (f) => {
     setNom_cli(f.nom_cli);
     setVal_identidad(f.val_identidad);
+    setForm({
+      ['val_identidad']: f.val_identidad
+    })
+    // console.log(f.val_identidad);
+    console.log(form.val_identidad);
     setPoliedro(f.poliedro);
   };
 
@@ -183,7 +169,7 @@ export default function FormularioNewnet({ id, data, setData }) {
 
   const submitEditar = async () => {
     try {
-      await upload();
+      // await upload();
 
       const tabla = "tyt_finan";
       const campo = "id";
@@ -210,26 +196,36 @@ export default function FormularioNewnet({ id, data, setData }) {
     camp,
     subCamp
   ) => {
+
     try {
-      console.log('getUrlImage')
-      console.log(img)
+      // console.log('getUrlImage')
+      // console.log(img)
       if (!img) {
         return '';
       } else {
         const formData = new FormData();
         formData.append("img", img);
-        let res = await axios.post(`${urlServer}/upload/uploadSingleFile/${camp}/${subCamp}`,
+        let res = await axios.post(`http://localhost:9369/upload/uploadSingleFile/${camp}/${subCamp}`,
+          // let res = await axios.post(`${url}/upload/uploadSingleFile/${camp}/${subCamp}`,
           formData
+
         );
-        let { url } = res.data;
+        console.log(res.data.url)
+        return res.data.url;
         // console.log(url)
-        return url
+        // return url
       }
     } catch (err) {
       console.log(err)
     }
 
   }
+
+
+  // const valImg = () => {
+  //   console.log('valImgval_identidad')
+  //   console.log(val_identidad)
+  // }
   return (
     <>
       <a
@@ -292,38 +288,31 @@ export default function FormularioNewnet({ id, data, setData }) {
               route={`${url}`}
             /> */}
             <ImagePaste
-              label="Validación de Identidad"
-              id="tc_val_identidad"
-              name="tc_val_identidad"
-              value={val_identidad}
+              label="Validación de identidad"
+              id="val_identidad"
+              name="val_identidad"
+              value={form.val_identidad}
               form={form}
               setForm={setForm}
+              required="true"
               classNameInput="form-control col-8"
               classNameDiv="form-group col-md-4"
-              route={`${urlServer}/imgVentas`}
+              route={`${urlNoPort}/public/imgVentas`}
+            // route={`../../public/imgVentas`}
+            // onChange={console.log(form.val_identidad)}
+            // tyt-financiado-image7-2022-07-27T16-55-24.246Z-image.png
             />
           </div>
 
         </div>
         <div className="grid grid-cols-1 mt-4">
-          {id ? null : (
-            <button type="submit" className="btn btn-outline btn-accent">
-              Registrar Datos
-            </button>
-          )}
+
+          <button type="submit" className="btn btn-outline btn-accent">
+            {id ? 'Actualizar ' : 'Registrar Datos'}
+          </button>
+
         </div>
       </form>
-      {id && (
-        <div className="grid grid-cols-1 mt-4">
-          <button
-            type="submit"
-            className="btn btn-outline btn-secondary"
-            onClick={editFinanciado}
-          >
-            Actualizar Datos
-          </button>
-        </div>
-      )}
     </>
   );
 }

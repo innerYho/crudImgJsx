@@ -16,7 +16,7 @@ const singleFileUpload = (req, res) => {
 
 const deleteSingleFile = (req, res) => {
   let { nameFile } = req.params
-  var filePath = path.join('../public/imgVentas/') + nameFile;
+  var filePath = path.join('../../public/imgVentas/') + nameFile;
   console.log(filePath)
   console.log('img delete')
   fs.unlinkSync(filePath);

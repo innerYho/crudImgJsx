@@ -41,7 +41,7 @@ export default function TablaFinanciado({
           <table id={tablaID} className="table table-auto">
             <thead>
               <tr className="text-center">
-                {/* <th>Editar</th> */}
+                <th>Editar</th>
                 <th>°</th>
                 <th>ID</th>
                 <th>Fechas de registro</th>
@@ -63,7 +63,7 @@ export default function TablaFinanciado({
                   <td>
                     <Link
                       className="btn btn-ghost btn-square shadow-md mx-0.5"
-                      to={`/registro/${item.id}`}
+                      to={`/rgt/${item.id}`}
                     >
                       <FaEdit className="text-accent text-2x1" />
                     </Link>

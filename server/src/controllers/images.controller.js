@@ -6,7 +6,7 @@ const uploadFile = async (req, res) => {
   } else {
     let nameImages = [];
     nameImages.push(req.files["image1"][0].filename);
-    nameImages.push(req.files["image2"][0].filename);
+    // nameImages.push(req.files["image2"][0].filename);
 
     console.log(nameImages);
 
