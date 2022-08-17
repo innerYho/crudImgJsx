@@ -301,7 +301,15 @@ export default function FormularioNewnet({ id, data, setData }) {
               required="true"
               classNameInput="form-control col-8"
               classNameDiv="form-group col-md-4"
+              // route={`${urlNoPort}/imgVentas`}
+              // route="../imgventas"
+              // route='require('./../imgventas/')'
+              // route={`${urlNoPort}/public/imgVentas`}
               route={require(`./../imgventas/${form.val_identidad}`)}
+            // route={require(`./../imgventas/${form.val_identidad}`)}
+
+            // onChange={console.log(form.val_identidad)}
+            // tyt-financiado-image7-2022-07-27T16-55-24.246Z-image.png
             />
           </div>
 

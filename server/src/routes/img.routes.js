@@ -19,7 +19,7 @@ const imgController = require('../controllers/img.controller');
 
 var storage = multer.diskStorage({
     // destination: 'http://localhost/public/imgVentas',
-    // destination: '../../client/public/imgVentas',
+    // destination: '../../client/imgventas',
     destination: '../client/src/imgventas',
 
     // destination: (req, file, callBack) => {
