@@ -8,11 +8,12 @@ import Swal from "sweetalert2";
 import { ImagePaste } from "./general/ImagePaste";
 import { useNavigate } from "react-router-dom";
 import { FaWpforms } from "react-icons/fa";
-
+import imagen from "../imgventas/tyt-contado-img-2022-08-17T19-04-56.415Z-imagen.png"
 export default function FormularioNewnet({ id, data, setData }) {
   // const cookie = new Cookies();
   const navigate = useNavigate();
   const url = "http://localhost:9369"
+  // const urlNoPort = "C:/Users/innerYho/Documents/2022/08/"
   const urlNoPort = "http://localhost"
   const images = [];
 
@@ -69,8 +70,8 @@ export default function FormularioNewnet({ id, data, setData }) {
 
   const submit = async (e) => {
     if (id) {
-      actionPrevUpdate(e)
-      // submitEditar(e)
+      // actionPrevUpdate(e)
+      submitEditar(e)
     } else {
       // actionPrevCreate(e)
       submitGuardar(e)
@@ -112,7 +113,7 @@ export default function FormularioNewnet({ id, data, setData }) {
 
       });
       Swal.fire(res.data.err ? res.data.err : res.data.msg);
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -156,7 +157,7 @@ export default function FormularioNewnet({ id, data, setData }) {
       ['val_identidad']: f.val_identidad
     })
     // console.log(f.val_identidad);
-    console.log(form.val_identidad);
+    // console.log(form.val_identidad);
     setPoliedro(f.poliedro);
   };
 
@@ -167,9 +168,11 @@ export default function FormularioNewnet({ id, data, setData }) {
 
   };
 
-  const submitEditar = async () => {
+  const submitEditar = async (e) => {
     try {
+      e.preventDefault();
       // await upload();
+      let valTemp = (await getUrlImage(form.val_identidad, 'tyt', 'contado'))
 
       const tabla = "tyt_finan";
       const campo = "id";
@@ -177,8 +180,8 @@ export default function FormularioNewnet({ id, data, setData }) {
         color: "Gris",
         fecha_r: date,
         nom_cli: nom_cli,
-        val_identidad: images[0],
-        poliedro: images[1],
+        val_identidad: valTemp,
+        // poliedro: images[1],
       });
       Swal.fire(res.data.err ? res.data.err : res.data.msg);
       navigate("/");
@@ -238,6 +241,7 @@ export default function FormularioNewnet({ id, data, setData }) {
 
       <form onSubmit={submit} className="p-4 rounded-md shadow-xl">
         <h2 className="text-2xl">{id ? "" : "No id"}</h2>
+        <img src={imagen} />
         <div className="divider" />
         <div className="grid grid-cols-8 gap-6">
           {id && (
@@ -297,13 +301,11 @@ export default function FormularioNewnet({ id, data, setData }) {
               required="true"
               classNameInput="form-control col-8"
               classNameDiv="form-group col-md-4"
-              route={`${urlNoPort}/public/imgVentas`}
-            // route={`../../public/imgVentas`}
-            // onChange={console.log(form.val_identidad)}
-            // tyt-financiado-image7-2022-07-27T16-55-24.246Z-image.png
+              route={require(`./../imgventas/${form.val_identidad}`)}
             />
           </div>
 
+          {/* <img src={require(`./../imgventas/${form.val_identidad}`)} alt="" /> */}
         </div>
         <div className="grid grid-cols-1 mt-4">
 

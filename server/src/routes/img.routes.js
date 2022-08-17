@@ -9,6 +9,7 @@ const multer = require('multer')
 const path = require('path')
 //version CronosAPi
 
+const urlNoPort = "http://localhost"
 
 const imgController = require('../controllers/img.controller');
 
@@ -17,11 +18,19 @@ const imgController = require('../controllers/img.controller');
 // const { upload } = require('../helpers/filehelper')
 
 var storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-        // callBack(null, '../public/imgVentas')     // './public/images/' directory name where save the file
-        // callBack(null, path.join(__dirname, '../public/imgVentas'))     // './public/images/' directory name where save the file
-        callBack(null, path.join('../../public/imgVentas'))     // './public/images/' directory name where save the file
-    },
+    // destination: 'http://localhost/public/imgVentas',
+    // destination: '../../client/public/imgVentas',
+    destination: '../client/src/imgventas',
+
+    // destination: (req, file, callBack) => {
+    // callBack(null, '../public/imgVentas')     // './public/images/' directory name where save the file
+    // callBack(null, path.join(__dirname, '../public/imgVentas'))     // './public/images/' directory name where save the file
+    // callBack(null, path.join('../../public/imgVentas'))     // './public/images/' directory name where save the file
+    // callBack(null, path.join(urlNoPort, '/public/imgVentas'))     // './public/images/' directory name where save the file
+    // callBack(null, "http://localhost/public/imgVentas")
+
+    // callBack(('http://localhost/public/imgVentas'))     // './public/images/' directory name where save the file
+    // },
     filename: (req, file, callBack) => {
         let { camp, subCamp } = req.params;
         // callBack(null, `${camp}-${subCamp}-${file.fieldname}-${new Date().toISOString().replace(/:/g, '-')}`);

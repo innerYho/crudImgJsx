@@ -74,8 +74,8 @@ export const ImagePaste = ({
                         <img
                             alt="Img not found"
                             style={styleImage}
-                            src={isObject(value) ? URL.createObjectURL(value) : `${route}/${value}`}
-                        // src={isEdit ? `${route}/${value}` : URL.createObjectURL(value)}
+                            src={isObject(value) ? URL.createObjectURL(value) : `${route}`}
+                        // src={isObject(value) ? URL.createObjectURL(value) : `${route}/${value}`}
                         />
                     </div>
                 )}
